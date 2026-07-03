@@ -26,7 +26,8 @@
       "mcp__plugin_supabase_supabase__execute_sql",
       "Bash(npm install *)",
       "Bash(npm run *)",
-      "Bash(git commit -m 'Integrate Supabase for authentication and data persistence *)"
+      "Bash(git commit -m 'Integrate Supabase for authentication and data persistence *)",
+      "Bash(git commit -m 'Fix Supabase client initialization for runtime validation *)"
     ]
   }
 }

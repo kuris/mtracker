@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { supabase } from '@/lib/supabase'
+import { supabase, validateSupabaseConfig } from '@/lib/supabase'
 
 interface User {
   id: string
@@ -34,6 +34,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
   initializeAuth: async () => {
     set({ isLoading: true })
     try {
+      validateSupabaseConfig()
       const { data: { session } } = await supabase.auth.getSession()
       if (session?.user) {
         set({
@@ -45,6 +46,8 @@ export const useAuthStore = create<AuthStore>((set) => ({
           isAuthenticated: true,
         })
       }
+    } catch (error) {
+      console.error('Auth initialization failed:', error)
     } finally {
       set({ isLoading: false })
     }
