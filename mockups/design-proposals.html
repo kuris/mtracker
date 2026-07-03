@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가계부 앱 - 디자인 시안 3가지</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f0f0f0; padding: 40px 20px; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        h1 { text-align: center; margin-bottom: 30px; font-size: 32px; }
+        .proposals { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+        .proposal { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .proposal-header { padding: 20px; }
+        .proposal-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+        .proposal-subtitle { font-size: 13px; color: #666; line-height: 1.5; margin-bottom: 16px; }
+        .proposal-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .tag { background: #f0f0f0; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+        .mockup { width: 100%; height: 200px; background: #e0e0e0; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #999; }
+        .proposal-details { padding: 20px; border-top: 1px solid #eee; }
+        .detail-row { margin-bottom: 12px; font-size: 13px; }
+        .detail-label { font-weight: 600; color: #333; margin-bottom: 4px; }
+        .detail-value { color: #666; line-height: 1.5; }
+        .pros { background: #f0f9f0; padding: 10px; border-radius: 6px; margin: 8px 0; border-left: 3px solid #27ae60; }
+        .cons { background: #fff0f0; padding: 10px; border-radius: 6px; margin: 8px 0; border-left: 3px solid #e74c3c; }
+        .target { background: #f0f5ff; padding: 10px; border-radius: 6px; border-left: 3px solid #3498db; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 가계부 앱 - 디자인 시안 3가지</h1>
+
+        <div class="proposals">
+            <!-- 시안 1: 현재 선택 방향 -->
+            <div class="proposal">
+                <div class="proposal-header">
+                    <div class="proposal-title">시안 1️⃣ 투명한 신비로움</div>
+                    <div class="proposal-subtitle">극도로 투명한 글래스 + 차분한 파랑 톤. 신비로우면서도 깔끔한 느낌</div>
+                    <div class="proposal-tags">
+                        <span class="tag">글래스모피즘</span>
+                        <span class="tag">다크모드</span>
+                        <span class="tag">미니멀</span>
+                    </div>
+                </div>
+                <div class="mockup">미리보기: final-design.html 참고</div>
+                <div class="proposal-details">
+                    <div class="detail-row">
+                        <div class="detail-label">색상</div>
+                        <div class="detail-value">진한 파랑/검정 배경 + 파란 톤 강조</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">레이아웃</div>
+                        <div class="detail-value">목표 원형 크게 + 카테고리 카드 아래</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">인터랙션</div>
+                        <div class="detail-value">부드러운 호버, 미묘한 글로우</div>
+                    </div>
+                    <div class="pros">✓ <strong>장점:</strong> 세련되고 현대적, 눈 편함, 차별성 높음</div>
+                    <div class="cons">✗ <strong>약점:</strong> 진지한 톤, 따뜻함 부족</div>
+                    <div class="target">👥 <strong>타깃:</strong> 철수 (기술친화적, 미니멀 선호)</div>
+                </div>
+            </div>
+
+            <!-- 시안 2: 미니멀 + 흑백 -->
+            <div class="proposal">
+                <div class="proposal-header">
+                    <div class="proposal-title">시안 2️⃣ 극도의 미니멀</div>
+                    <div class="proposal-subtitle">검정-흰색-회색만. 말 없이 강렬한 데이터 중심의 인터페이스</div>
+                    <div class="proposal-tags">
+                        <span class="tag">미니멀</span>
+                        <span class="tag">흑백</span>
+                        <span class="tag">데이터중심</span>
+                    </div>
+                </div>
+                <div class="mockup" style="background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);">
+                    <div style="text-align: center;">
+                        <div style="color: #000; margin-bottom: 10px; font-weight: bold; font-size: 18px;">60%</div>
+                        <div style="font-size: 12px; color: #333; margin-bottom: 8px;">목표 20,000/50,000원</div>
+                        <div style="font-size: 11px; color: #666;">□ 카테고리 □ 카테고리</div>
+                    </div>
+                </div>
+                <div class="proposal-details">
+                    <div class="detail-row">
+                        <div class="detail-label">색상</div>
+                        <div class="detail-value">#000000, #FFFFFF, #808080만 사용</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">레이아웃</div>
+                        <div class="detail-value">그리드 중심, 균등한 공간 배분</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">인터랙션</div>
+                        <div class="detail-value">클릭 시 반전 또는 테두리 강조</div>
+                    </div>
+                    <div class="pros">✓ <strong>장점:</strong> 가장 빠름, 명확함, 인쇄 호환성</div>
+                    <div class="cons">✗ <strong>약점:</strong> 차별성 없음, 따뜻함 부족, 지루할 수 있음</div>
+                    <div class="target">👥 <strong>타깃:</strong> 데이터 분석가, 미니멀 매니아</div>
+                </div>
+            </div>
+
+            <!-- 시안 3: 따뜻한 톤 -->
+            <div class="proposal">
+                <div class="proposal-header">
+                    <div class="proposal-title">시안 3️⃣ 따뜻한 집</div>
+                    <div class="proposal-subtitle">밤하늘 어두운 톤 + 오렌지/골드 강조. 부부가 함께하는 따뜻함</div>
+                    <div class="proposal-tags">
+                        <span class="tag">따뜻한톤</span>
+                        <span class="tag">친근함</span>
+                        <span class="tag">부부중심</span>
+                    </div>
+                </div>
+                <div class="mockup" style="background: linear-gradient(135deg, #2a2416 0%, #1a1410 100%); color: #f5deb3;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 14px; margin-bottom: 10px;">60% 🏡 절약했어요</div>
+                        <div style="font-size: 12px; color: #d4a574;">따뜻한 오렌지 톤...</div>
+                    </div>
+                </div>
+                <div class="proposal-details">
+                    <div class="detail-row">
+                        <div class="detail-label">색상</div>
+                        <div class="detail-value">따뜻한 갈색/검정 배경 + 골드/오렌지 강조</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">레이아웃</div>
+                        <div class="detail-value">따뜻한 카드형, 둥근 모서리</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">인터랙션</div>
+                        <div class="detail-value">골드 글로우, 부드러운 애니메이션</div>
+                    </div>
+                    <div class="pros">✓ <strong>장점:</strong> 친근하고 따뜻함, 가족 중심, 감정적 연결</div>
+                    <div class="cons">✗ <strong>약점:</strong> 진부할 수 있음, 세련됨 부족</div>
+                    <div class="target">👥 <strong>타깃:</strong> 영희 (감정 중심, 따뜻함 선호)</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 60px; padding: 20px; background: white; border-radius: 12px; border-left: 4px solid #3498db;">
+            <h2 style="margin-bottom: 15px;">💬 선택 가이드</h2>
+            <ul style="line-height: 2; color: #333; font-size: 14px;">
+                <li><strong>시안 1 (투명한 신비로움):</strong> 세련되고 현대적. 기술적, 진지한 톤. 차별성 높음.</li>
+                <li><strong>시안 2 (극도의 미니멀):</strong> 가장 빠르고 명확. 데이터 중심. 따뜻함 부족.</li>
+                <li><strong>시안 3 (따뜻한 집):</strong> 친근하고 감정적. 부부 함께하는 느낌. 세련됨은 중간.</li>
+            </ul>
+            <p style="margin-top: 15px; color: #666; font-size: 13px;">
+                현재 추천: <strong>시안 1 (투명한 신비로움)</strong> - 차별성과 세련됨을 모두 갖춤
+            </p>
+        </div>
+    </div>
+</body>
+</html>

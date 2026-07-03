@@ -1,0 +1,112 @@
+/* Glassmorphism Design Variables */
+
+:root {
+  /* Glass effect layers */
+  --glass-intensity: 0.7;
+  --glass-blur: 10px;
+  --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+
+  /* Light mode glass colors */
+  --glass-bg-light: rgba(255, 255, 255, var(--glass-intensity));
+  --glass-border-light: rgba(255, 255, 255, 0.3);
+  --glass-shadow-light: 0 8px 32px rgba(31, 38, 135, 0.15);
+}
+
+html.dark {
+  /* Dark mode glass colors */
+  --glass-bg-dark: rgba(31, 41, 55, calc(var(--glass-intensity) - 0.1));
+  --glass-border-dark: rgba(255, 255, 255, 0.15);
+  --glass-shadow-dark: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Glass Effect Classes */
+
+.glass {
+  background: var(--glass-bg-light);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border-light);
+  box-shadow: var(--glass-shadow-light);
+  border-radius: 12px;
+}
+
+html.dark .glass {
+  background: var(--glass-bg-dark);
+  border-color: var(--glass-border-dark);
+  box-shadow: var(--glass-shadow-dark);
+}
+
+.glass-sm {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 16px rgba(31, 38, 135, 0.1);
+  border-radius: 8px;
+}
+
+html.dark .glass-sm {
+  background: rgba(31, 41, 55, 0.5);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.glass-lg {
+  background: var(--glass-bg-light);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border-light);
+  box-shadow: 0 12px 40px rgba(31, 38, 135, 0.2);
+  border-radius: 16px;
+}
+
+html.dark .glass-lg {
+  background: var(--glass-bg-dark);
+  border-color: var(--glass-border-dark);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Micro interactions */
+
+.glass {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass:hover {
+  backdrop-filter: blur(calc(var(--glass-blur) + 2px));
+  -webkit-backdrop-filter: blur(calc(var(--glass-blur) + 2px));
+  box-shadow: var(--glass-shadow-light);
+}
+
+html.dark .glass:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.glass-interactive {
+  cursor: pointer;
+  user-select: none;
+}
+
+.glass-interactive:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+/* Utility classes for glass components */
+
+.glass-text {
+  background: linear-gradient(135deg, var(--color-text-primary), var(--color-text-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-gradient {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4));
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+
+html.dark .glass-gradient {
+  background: linear-gradient(135deg, rgba(31, 41, 55, 0.8), rgba(31, 41, 55, 0.4));
+}

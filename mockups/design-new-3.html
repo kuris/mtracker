@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가계부 앱 - 새로운 디자인 3가지</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f0f0f0; padding: 40px 20px; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        h1 { text-align: center; margin-bottom: 40px; font-size: 32px; color: #333; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 30px; }
+
+        .card { border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+        .card-header { padding: 24px; color: white; }
+        .card-title { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+        .card-desc { font-size: 14px; opacity: 0.9; line-height: 1.5; margin-bottom: 16px; }
+        .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+        .tag { background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 12px; font-size: 12px; }
+
+        .card-preview { height: 180px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; font-weight: bold; }
+        .card-details { padding: 24px; background: white; }
+        .detail { margin-bottom: 16px; }
+        .detail-label { font-weight: 600; color: #333; margin-bottom: 4px; font-size: 13px; }
+        .detail-value { color: #666; font-size: 14px; line-height: 1.5; }
+        .pros { color: #27ae60; font-weight: 600; margin-top: 12px; }
+        .cons { color: #e74c3c; font-weight: 600; margin-top: 6px; }
+        .target { color: #3498db; font-weight: 600; margin-top: 6px; }
+
+        /* 시안 1: 초록 + 화이트 */
+        .option1-header { background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%); }
+        .option1-preview { background: linear-gradient(135deg, #1abc9c 0%, #16a085 100%); }
+
+        /* 시안 2: 핑크 + 라벤더 */
+        .option2-header { background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%); }
+        .option2-preview { background: linear-gradient(135deg, #f48fb1 0%, #e91e63 100%); }
+
+        /* 시안 3: 인디고 + 골드 */
+        .option3-header { background: linear-gradient(135deg, #3f51b5 0%, #283593 100%); }
+        .option3-preview { background: linear-gradient(135deg, #3f51b5 0%, #283593 100%); }
+
+        .preview-text { font-size: 28px; margin-bottom: 8px; }
+        .preview-sub { font-size: 13px; opacity: 0.85; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 가계부 앱 - 새로운 디자인 시안 3가지</h1>
+
+        <div class="grid">
+            <!-- 시안 1: 초록 + 화이트 (신선하고 활기찬) -->
+            <div class="card">
+                <div class="card-header option1-header">
+                    <div class="card-title">시안 1️⃣ 신선한 활기</div>
+                    <div class="card-desc">초록색의 활기 + 깔끔한 화이트. 자연스럽고 명확한 느낌</div>
+                    <div class="tags">
+                        <span class="tag">초록톤</span>
+                        <span class="tag">활기찬</span>
+                        <span class="tag">신선함</span>
+                    </div>
+                </div>
+                <div class="card-preview option1-preview">
+                    <div class="preview-text">💰</div>
+                    <div class="preview-sub">60% 목표 달성</div>
+                </div>
+                <div class="card-details">
+                    <div class="detail">
+                        <div class="detail-label">색상</div>
+                        <div class="detail-value">터콰이즈 초록 (#1abc9c) + 화이트</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">레이아웃</div>
+                        <div class="detail-value">깔끔한 카드형, 큰 아이콘, 활기찬 배치</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">특징</div>
+                        <div class="detail-value">자연스러움, 쉬운 접근, 긍정적 에너지</div>
+                    </div>
+                    <div class="pros">✓ 사용하기 편함, 친절하고 활기찬, 생명력 넘침</div>
+                    <div class="cons">✗ 개성 약함, 너무 밝을 수 있음</div>
+                    <div class="target">👥 모든 연령대, 편안함을 원하는 사람들</div>
+                </div>
+            </div>
+
+            <!-- 시안 2: 핑크 + 라벤더 (감정적이고 부드러운) -->
+            <div class="card">
+                <div class="card-header option2-header">
+                    <div class="card-title">시안 2️⃣ 감정의 울림</div>
+                    <div class="card-desc">핑크-라벤더 그라데이션. 부드럽고 감정적인 온기</div>
+                    <div class="tags">
+                        <span class="tag">핑크톤</span>
+                        <span class="tag">감정적</span>
+                        <span class="tag">부드러움</span>
+                    </div>
+                </div>
+                <div class="card-preview option2-preview">
+                    <div class="preview-text">❤️</div>
+                    <div class="preview-sub">함께 아끼는 우리의 재정</div>
+                </div>
+                <div class="card-details">
+                    <div class="detail">
+                        <div class="detail-label">색상</div>
+                        <div class="detail-value">핑크 (#e91e63) + 라벤더 그라데이션</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">레이아웃</div>
+                        <div class="detail-value">부드러운 곡선, 위로하는 톤, 따뜻한 여백</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">특징</div>
+                        <div class="detail-value">감정적 연결, 부부의 신뢰, 함께한다는 느낌</div>
+                    </div>
+                    <div class="pros">✓ 부부 중심적, 따뜻하고 안정적, 심리적 안정감</div>
+                    <div class="cons">✗ 너무 로맨틱할 수 있음, 비즈니스 톤 약함</div>
+                    <div class="target">👥 부부, 감정적 연결을 중시하는 사람들</div>
+                </div>
+            </div>
+
+            <!-- 시안 3: 인디고 + 골드 (고급스럽고 프리미엄) -->
+            <div class="card">
+                <div class="card-header option3-header">
+                    <div class="card-title">시안 3️⃣ 프리미엄 우아함</div>
+                    <div class="card-desc">인디고 + 골드 액센트. 고급스럽고 세련된 느낌</div>
+                    <div class="tags">
+                        <span class="tag">인디고톤</span>
+                        <span class="tag">프리미엄</span>
+                        <span class="tag">고급스러움</span>
+                    </div>
+                </div>
+                <div class="card-preview option3-preview">
+                    <div class="preview-text">✨</div>
+                    <div class="preview-sub">우아한 자산 관리</div>
+                </div>
+                <div class="card-details">
+                    <div class="detail">
+                        <div class="detail-label">색상</div>
+                        <div class="detail-value">인디고 (#3f51b5) + 골드 (#ffd700) 악센트</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">레이아웃</div>
+                        <div class="detail-value">정제된 배치, 골드 강조 포인트, 고급 폰트</div>
+                    </div>
+                    <div class="detail">
+                        <div class="detail-label">특징</div>
+                        <div class="detail-value">신뢰감, 안정성, 전문성, 프리미엄 경험</div>
+                    </div>
+                    <div class="pros">✓ 신뢰감 높음, 프리미엄 느낌, 차별화 강함</div>
+                    <div class="cons">✗ 딱딱할 수 있음, 친근함 부족</div>
+                    <div class="target">👥 신뢰성 중시, 프리미엄 경험을 원하는 사람들</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 60px; padding: 30px; background: white; border-radius: 12px; border-left: 5px solid #3498db;">
+            <h2 style="margin-bottom: 20px;">💡 3가지 시안의 성격</h2>
+            <ul style="line-height: 2.2; color: #333; font-size: 15px;">
+                <li><strong>시안 1️⃣ 신선한 활기:</strong> 초록 톤으로 자연스럽고 명확함. 모든 사람이 편하게 사용 가능</li>
+                <li><strong>시안 2️⃣ 감정의 울림:</strong> 핑크 톤으로 따뜻하고 부부 중심적. 감정적 연결 강함</li>
+                <li><strong>시안 3️⃣ 프리미엄 우아함:</strong> 인디고 톤으로 고급스럽고 신뢰감 높음. 차별화 강함</li>
+            </ul>
+            <p style="margin-top: 20px; color: #666; font-size: 14px;">
+                👉 <strong>선택하실 시안을 말씀해주세요: 1️⃣, 2️⃣, 또는 3️⃣</strong>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

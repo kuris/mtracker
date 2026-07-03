@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가계부 - 다크모드 vs 일반모드 비교</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: #f5f5f5;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 14px;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .mode-label {
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .mode-label.dark {
+            color: #fff;
+            background: linear-gradient(135deg, #0a0e27, #0f1635);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .mode-label.light {
+            color: #333;
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        /* 공통 스타일 */
+        .phone-mockup {
+            width: 375px;
+            height: 812px;
+            background: #000;
+            border-radius: 50px;
+            padding: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(0, 0, 0, 0.3);
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .phone-mockup::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 25px;
+            background: #000;
+            border-radius: 0 0 20px 20px;
+            z-index: 100;
+        }
+
+        .screen {
+            width: 100%;
+            height: 100%;
+            border-radius: 45px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 다크모드 */
+        .dark .screen {
+            background: linear-gradient(135deg, #0a0e27 0%, #0f1635 100%);
+        }
+
+        /* 일반모드 */
+        .light .screen {
+            background: linear-gradient(135deg, #f8f9fb 0%, #f5f7fc 100%);
+        }
+
+        .status-bar {
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            font-size: 12px;
+            border-bottom: 1px solid;
+        }
+
+        .dark .status-bar {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            border-bottom-color: rgba(150, 180, 255, 0.08);
+            color: #fff;
+        }
+
+        .light .status-bar {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom-color: rgba(150, 180, 255, 0.15);
+            color: #333;
+        }
+
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            gap: 12px;
+        }
+
+        .content::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .dark .content::-webkit-scrollbar-thumb {
+            background: rgba(100, 150, 255, 0.3);
+        }
+
+        .light .content::-webkit-scrollbar-thumb {
+            background: rgba(100, 150, 255, 0.2);
+        }
+
+        /* 글래스 카드 */
+        .glass {
+            background-position: center;
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(150, 180, 255, 0.12);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.05);
+        }
+
+        .light .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(150, 180, 255, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+        }
+
+        .header {
+            text-align: center;
+        }
+
+        .header .label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .dark .header .label {
+            color: rgba(150, 180, 255, 0.5);
+        }
+
+        .light .header .label {
+            color: rgba(100, 150, 200, 0.6);
+        }
+
+        .progress-circle {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .dark .progress-circle {
+            background: rgba(100, 150, 255, 0.08);
+            border: 1.5px solid rgba(150, 180, 255, 0.2);
+            box-shadow: 0 0 20px rgba(100, 150, 255, 0.08), inset 0 0 20px rgba(100, 150, 255, 0.04);
+        }
+
+        .light .progress-circle {
+            background: rgba(100, 150, 255, 0.06);
+            border: 1.5px solid rgba(100, 150, 200, 0.25);
+            box-shadow: 0 0 20px rgba(100, 150, 200, 0.08), inset 0 0 20px rgba(100, 150, 200, 0.04);
+        }
+
+        .progress-percent {
+            font-size: 44px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .dark .progress-percent {
+            color: #8eb4f0;
+        }
+
+        .light .progress-percent {
+            color: #6b8fd9;
+        }
+
+        .progress-label {
+            font-size: 10px;
+            margin-top: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .dark .progress-label {
+            color: rgba(150, 180, 255, 0.5);
+        }
+
+        .light .progress-label {
+            color: rgba(100, 150, 200, 0.6);
+        }
+
+        .status-message {
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .dark .status-message {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .light .status-message {
+            color: #2c3e50;
+        }
+
+        .status-emoji {
+            font-size: 24px;
+            margin-top: 4px;
+            opacity: 0.8;
+        }
+
+        .amount-text {
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        .dark .amount-text {
+            color: rgba(150, 180, 255, 0.5);
+        }
+
+        .light .amount-text {
+            color: rgba(100, 150, 200, 0.6);
+        }
+
+        /* 카테고리 카드 */
+        .category-card {
+            background-position: center;
+            border-radius: 18px;
+            padding: 14px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .dark .category-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(150, 180, 255, 0.1);
+        }
+
+        .light .category-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(150, 180, 255, 0.12);
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .category-name {
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dark .category-name {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .light .category-name {
+            color: #2c3e50;
+        }
+
+        .category-emoji {
+            font-size: 16px;
+        }
+
+        .category-amount {
+            font-size: 12px;
+        }
+
+        .dark .category-amount {
+            color: rgba(150, 180, 255, 0.5);
+        }
+
+        .light .category-amount {
+            color: rgba(100, 150, 200, 0.6);
+        }
+
+        .category-progress {
+            height: 5px;
+            border-radius: 2.5px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .dark .category-progress {
+            background: rgba(150, 180, 255, 0.08);
+        }
+
+        .light .category-progress {
+            background: rgba(100, 150, 200, 0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, rgba(100, 150, 255, 0.6), rgba(120, 170, 255, 0.8));
+            border-radius: 2.5px;
+        }
+
+        .dark .progress-bar {
+            box-shadow: 0 0 8px rgba(100, 150, 255, 0.4);
+        }
+
+        .light .progress-bar {
+            box-shadow: 0 0 8px rgba(100, 150, 200, 0.3);
+        }
+
+        .category-count {
+            display: flex;
+            gap: 6px;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .category-count-text {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .dark .category-count-text {
+            color: rgba(140, 180, 255, 0.8);
+        }
+
+        .light .category-count-text {
+            color: rgba(100, 150, 200, 0.8);
+        }
+
+        /* FAB 버튼 */
+        .fab {
+            position: fixed;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: 1.5px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 50;
+        }
+
+        .dark .fab {
+            background: linear-gradient(135deg, rgba(100, 150, 255, 0.4), rgba(120, 180, 255, 0.3));
+            border-color: rgba(150, 180, 255, 0.3);
+            box-shadow: 0 0 15px rgba(100, 150, 255, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            color: rgba(200, 220, 255, 0.9);
+        }
+
+        .light .fab {
+            background: linear-gradient(135deg, rgba(100, 150, 255, 0.3), rgba(120, 170, 255, 0.25));
+            border-color: rgba(100, 150, 200, 0.35);
+            box-shadow: 0 0 15px rgba(100, 150, 200, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+            color: rgba(80, 120, 180, 0.9);
+        }
+
+        @media (max-width: 900px) {
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>가계부 앱 - 다크모드 vs 일반모드</h1>
+        <p class="subtitle">좌측: 다크모드 (권장) | 우측: 일반모드 (선택)</p>
+
+        <div class="comparison">
+            <!-- 다크모드 -->
+            <div>
+                <div class="mode-label dark">🌙 다크모드 (권장)</div>
+                <div class="phone-mockup dark">
+                    <div class="screen">
+                        <div class="status-bar">
+                            <span>9:41</span>
+                            <span>📶 📡 🔋</span>
+                        </div>
+
+                        <div class="content">
+                            <div class="header glass">
+                                <div class="label">오늘의 목표</div>
+                                <div class="progress-circle">
+                                    <div class="progress-percent">60%</div>
+                                    <div class="progress-label">사용 중</div>
+                                </div>
+                                <div class="status-message">절약했어요</div>
+                                <div class="status-emoji">❄️</div>
+                                <div class="amount-text">20,000 / 50,000원</div>
+                            </div>
+
+                            <div class="category-card">
+                                <div class="category-header">
+                                    <div class="category-name">
+                                        <span class="category-emoji">☕</span>
+                                        커피
+                                    </div>
+                                    <div class="category-amount">3,800원</div>
+                                </div>
+                                <div class="category-progress">
+                                    <div class="progress-bar" style="width: 33%"></div>
+                                </div>
+                                <div class="category-count">☕ ☕ <span style="opacity: 0.3;">⭕</span></div>
+                                <div class="category-count-text">2잔 남았어요</div>
+                            </div>
+
+                            <div class="category-card">
+                                <div class="category-header">
+                                    <div class="category-name">
+                                        <span class="category-emoji">🍽️</span>
+                                        식비
+                                    </div>
+                                    <div class="category-amount">12,000원</div>
+                                </div>
+                                <div class="category-progress">
+                                    <div class="progress-bar" style="width: 60%"></div>
+                                </div>
+                                <div class="category-count-text" style="margin-top: 6px;">8,000원 남음</div>
+                            </div>
+
+                            <div class="category-card">
+                                <div class="category-header">
+                                    <div class="category-name">
+                                        <span class="category-emoji">🛍️</span>
+                                        쇼핑
+                                    </div>
+                                    <div class="category-amount">8,000원</div>
+                                </div>
+                                <div class="category-progress">
+                                    <div class="progress-bar" style="width: 53%"></div>
+                                </div>
+                                <div class="category-count-text" style="margin-top: 6px;">7,000원 남음</div>
+                            </div>
+                        </div>
+
+                        <div class="fab">+</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 일반모드 -->
+            <div>
+                <div class="mode-label light">☀️ 일반모드</div>
+                <div class="phone-mockup light">
+                    <div class="screen">
+                        <div class="status-bar">
+                            <span>9:41</span>
+                            <span>📶 📡 🔋</span>
+                        </div>
+
+                        <div class="content">
+                            <div class="header glass">
+                                <div class="label">오늘의 목표</div>
+                                <div class="progress-circle">
+                                    <div class="progress-percent">60%</div>
+                                    <div class="progress-label">사용 중</div>
+                                </div>
+                                <div class="status-message">절약했어요</div>
+                                <div class="status-emoji">❄️</div>
+                                <div class="amount-text">20,000 / 50,000원</div>
+                            </div>
+
+                            <div class="category-card">
+                                <div class="category-header">
+                                    <div class="category-name">
+                                        <span class="category-emoji">☕</span>
+                                        커피
+                                    </div>
+                                    <div class="category-amount">3,800원</div>
+                                </div>
+                                <div class="category-progress">
+                                    <div class="progress-bar" style="width: 33%"></div>
+                                </div>
+                                <div class="category-count">☕ ☕ <span style="opacity: 0.3;">⭕</span></div>
+                                <div class="category-count-text">2잔 남았어요</div>
+                            </div>
+
+                            <div class="category-card">
+                                <div class="category-header">
+                                    <div class="category-name">
+                                        <span class="category-emoji">🍽️</span>
+                                        식비
+                                    </div>
+                                    <div class="category-amount">12,000원</div>
+                                </div>
+                                <div class="category-progress">
+                                    <div class="progress-bar" style="width: 60%"></div>
+                                </div>
+                                <div class="category-count-text" style="margin-top: 6px;">8,000원 남음</div>
+                            </div>
+
+                            <div class="category-card">
+                                <div class="category-header">
+                                    <div class="category-name">
+                                        <span class="category-emoji">🛍️</span>
+                                        쇼핑
+                                    </div>
+                                    <div class="category-amount">8,000원</div>
+                                </div>
+                                <div class="category-progress">
+                                    <div class="progress-bar" style="width: 53%"></div>
+                                </div>
+                                <div class="category-count-text" style="margin-top: 6px;">7,000원 남음</div>
+                            </div>
+                        </div>
+
+                        <div class="fab">+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
