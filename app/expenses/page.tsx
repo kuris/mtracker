@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useTransactionStore, Transaction } from '@/store/transactionStore'
+import { useTransactionStore } from '@/store/transactionStore'
 
 const CATEGORY_EMOJIS: Record<string, string> = {
   coffee: '☕',

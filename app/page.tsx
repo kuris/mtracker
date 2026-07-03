@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { TransactionModal } from '@/components/features/TransactionModal'
 import { useTransactionStore } from '@/store/transactionStore'
 import { useUIStore } from '@/store/uiStore'
 import { useWeeklyGoalStore } from '@/store/weeklyGoalStore'
@@ -20,7 +19,7 @@ const CATEGORIES = {
 export default function HomePage() {
   const { openModal } = useUIStore()
   const { transactions, getDailyTotal, getTotalByCategory, getWeeklyTotal } = useTransactionStore()
-  const { goal: weeklyGoal, getCurrentWeekGoal, getWeekStartDate, setGoal } = useWeeklyGoalStore()
+  const { getCurrentWeekGoal, getWeekStartDate, setGoal } = useWeeklyGoalStore()
   const [today] = useState(new Date())
   const [weeklyBudgetInput, setWeeklyBudgetInput] = useState('')
   const [showWeeklyInput, setShowWeeklyInput] = useState(false)
