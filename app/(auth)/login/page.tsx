@@ -30,17 +30,11 @@ export default function LoginPage() {
         return
       }
 
-      // TODO: Supabase 인증 구현
-      // 임시: 로컬 로그인 시뮬레이션
-      setUser({
-        id: '1',
-        name: email.split('@')[0],
-        email,
-      })
-
+      const authStore = useAuthStore.getState()
+      await authStore.login(email, password)
       router.push('/')
     } catch (err) {
-      setError('로그인 실패. 다시 시도해주세요.')
+      setError('로그인 실패. 이메일과 비밀번호를 확인해주세요.')
       console.error(err)
     } finally {
       setLoading(false)

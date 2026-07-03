@@ -50,14 +50,8 @@ export default function SignupPage() {
         return
       }
 
-      // TODO: Supabase 인증 구현
-      // 임시: 로컬 회원가입 시뮬레이션
-      setUser({
-        id: '1',
-        name: formData.email.split('@')[0],
-        email: formData.email,
-      })
-
+      const authStore = useAuthStore.getState()
+      await authStore.signup(formData.email, formData.password)
       router.push('/')
     } catch (err) {
       setError('회원가입 실패. 다시 시도해주세요.')
