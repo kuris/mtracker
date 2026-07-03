@@ -55,8 +55,8 @@ export function TransactionModal() {
       />
 
       {/* Modal */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl z-50 p-6 max-h-[90vh] overflow-y-auto">
-        <div className="max-w-md mx-auto">
+      <div className="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl z-50 p-6 max-h-[90vh] overflow-y-auto flex flex-col">
+        <div className="max-w-md mx-auto w-full flex-1">
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-gray-800">지출 추가</h2>
@@ -68,7 +68,7 @@ export function TransactionModal() {
             </button>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6 pb-20">
             {/* Amount Input */}
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-2">
