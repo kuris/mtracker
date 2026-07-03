@@ -1,12 +1,17 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useAuthStore } from '@/store/authStore'
 
 export default function SettingsPage() {
+  const router = useRouter()
+  const { user, logout } = useAuthStore()
   const [shareCode, setShareCode] = useState('')
   const [showShareCode, setShowShareCode] = useState(false)
   const [showJoinForm, setShowJoinForm] = useState(false)
   const [joinCode, setJoinCode] = useState('')
+  const [isLoggingOut, setIsLoggingOut] = useState(false)
 
   const generateShareCode = () => {
     const code = Math.random().toString(36).substring(2, 8).toUpperCase()
@@ -22,6 +27,18 @@ export default function SettingsPage() {
     alert(`${joinCode} 코드로 계정 연결됨 (로컬 데모)`)
     setJoinCode('')
     setShowJoinForm(false)
+  }
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true)
+    try {
+      await logout()
+      router.push('/login')
+    } catch (error) {
+      console.error('Logout error:', error)
+      alert('로그아웃 중 오류가 발생했습니다')
+      setIsLoggingOut(false)
+    }
   }
 
   return (
@@ -114,18 +131,22 @@ export default function SettingsPage() {
           <div className="space-y-3">
             <div>
               <p className="text-sm text-gray-600">이메일</p>
-              <p className="font-bold text-gray-800">demo@example.com</p>
+              <p className="font-bold text-gray-800">{user?.email || '로그인 필요'}</p>
             </div>
             <div>
-              <p className="text-sm text-gray-600">가입일</p>
-              <p className="font-bold text-gray-800">2026년 7월 3일</p>
+              <p className="text-sm text-gray-600">이름</p>
+              <p className="font-bold text-gray-800">{user?.name || '사용자'}</p>
             </div>
           </div>
         </div>
 
         {/* Logout Button */}
-        <button className="w-full py-3 bg-red-100 text-red-600 font-bold rounded-lg hover:bg-red-200 transition-colors">
-          로그아웃
+        <button
+          onClick={handleLogout}
+          disabled={isLoggingOut}
+          className="w-full py-3 bg-red-100 text-red-600 font-bold rounded-lg hover:bg-red-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {isLoggingOut ? '로그아웃 중...' : '로그아웃'}
         </button>
       </div>
     </div>
