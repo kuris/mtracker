@@ -33,24 +33,38 @@ export const useWeeklyGoalStore = create<WeeklyGoalState>((set, get) => ({
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) return
 
+      // Find account connection for this user
+      const { data: connections } = await supabase
+        .from('account_connections')
+        .select('user_ids')
+        .contains('user_ids', [user.id])
+
+      // Get all user IDs in the connection (including self)
+      let userIds = [user.id]
+      if (connections && connections.length > 0) {
+        userIds = connections[0].user_ids
+      }
+
       const weekStart = get().getWeekStartDate(new Date())
       const weekStartStr = weekStart.toISOString().split('T')[0]
 
       const { data, error } = await supabase
         .from('goals')
         .select('*')
-        .eq('user_id', user.id)
+        .in('user_id', userIds)
         .eq('week_start_date', weekStartStr)
-        .single()
 
-      if (error && error.code !== 'PGRST116') throw error
+      if (error) throw error
 
-      if (data) {
+      // Sum up budgets from all connected users
+      const totalBudget = (data || []).reduce((sum, g) => sum + g.budget, 0)
+
+      if (totalBudget > 0 && data && data.length > 0) {
         set({
           goal: {
-            id: data.id,
-            weekStartDate: new Date(data.week_start_date),
-            budget: data.budget,
+            id: data[0].id,
+            weekStartDate: new Date(data[0].week_start_date),
+            budget: totalBudget,
           },
         })
       }

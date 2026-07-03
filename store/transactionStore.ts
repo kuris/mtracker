@@ -32,10 +32,23 @@ export const useTransactionStore = create<TransactionState>((set, get) => ({
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) return
 
+      // Find account connection for this user
+      const { data: connections } = await supabase
+        .from('account_connections')
+        .select('user_ids')
+        .contains('user_ids', [user.id])
+
+      // Get all user IDs in the connection (including self)
+      let userIds = [user.id]
+      if (connections && connections.length > 0) {
+        userIds = connections[0].user_ids
+      }
+
+      // Load transactions for all connected users
       const { data, error } = await supabase
         .from('transactions')
         .select('*')
-        .eq('user_id', user.id)
+        .in('user_id', userIds)
         .order('created_at', { ascending: false })
 
       if (error) throw error

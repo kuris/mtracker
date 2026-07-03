@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store/authStore'
+import { supabase } from '@/lib/supabase'
 
 export default function SettingsPage() {
   const router = useRouter()
@@ -12,21 +13,73 @@ export default function SettingsPage() {
   const [showJoinForm, setShowJoinForm] = useState(false)
   const [joinCode, setJoinCode] = useState('')
   const [isLoggingOut, setIsLoggingOut] = useState(false)
+  const [isGenerating, setIsGenerating] = useState(false)
+  const [isJoining, setIsJoining] = useState(false)
 
-  const generateShareCode = () => {
-    const code = Math.random().toString(36).substring(2, 8).toUpperCase()
-    setShareCode(code)
-    setShowShareCode(true)
+  const generateShareCode = async () => {
+    if (!user) return
+    setIsGenerating(true)
+    try {
+      const code = Math.random().toString(36).substring(2, 8).toUpperCase()
+
+      const { error } = await supabase
+        .from('account_connections')
+        .insert({
+          shared_code: code,
+          user_ids: [user.id],
+          created_by: user.id,
+        })
+
+      if (error) throw error
+
+      setShareCode(code)
+      setShowShareCode(true)
+    } catch (error) {
+      console.error('Failed to generate share code:', error)
+      alert('공유 코드 생성에 실패했습니다')
+    } finally {
+      setIsGenerating(false)
+    }
   }
 
-  const handleJoinAccount = () => {
-    if (!joinCode) {
+  const handleJoinAccount = async () => {
+    if (!user || !joinCode) {
       alert('코드를 입력해주세요')
       return
     }
-    alert(`${joinCode} 코드로 계정 연결됨 (로컬 데모)`)
-    setJoinCode('')
-    setShowJoinForm(false)
+    setIsJoining(true)
+    try {
+      // Find the connection with this code
+      const { data: connection, error: findError } = await supabase
+        .from('account_connections')
+        .select('*')
+        .eq('shared_code', joinCode)
+        .single()
+
+      if (findError || !connection) {
+        alert('유효하지 않은 코드입니다')
+        return
+      }
+
+      // Add current user to the connection
+      const updatedUserIds = Array.from(new Set([...connection.user_ids, user.id]))
+
+      const { error: updateError } = await supabase
+        .from('account_connections')
+        .update({ user_ids: updatedUserIds })
+        .eq('shared_code', joinCode)
+
+      if (updateError) throw updateError
+
+      alert(`${joinCode} 코드로 계정 연결되었습니다!`)
+      setJoinCode('')
+      setShowJoinForm(false)
+    } catch (error) {
+      console.error('Failed to join account:', error)
+      alert('계정 연결에 실패했습니다')
+    } finally {
+      setIsJoining(false)
+    }
   }
 
   const handleLogout = async () => {
